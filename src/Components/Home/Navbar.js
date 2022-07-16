@@ -1,42 +1,56 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+
+    const logout = () => {
+        signOut(auth);
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+    };
+
+    const menuItems = <>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/addtask">Add Task</Link></li>
+        <li><Link to="/signup">Sign Up</Link></li>
+        <li><Link to="/login">Login</Link></li>
+        {
+            user && <li><Link to="/mytask">My Task</Link></li>
+        }
+        <li>{user ? <button className="btn btn-ghost" onClick={logout} >Sign Out</button> : <Link to="/login">Login</Link>}</li>
+    </>
     return (
-        <div>
-            <div class="drawer">
-                <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content flex flex-col">
-
-                    <div class="w-full navbar bg-base-300">
-                        <div class="flex-none lg:hidden">
-                            <label for="my-drawer-3" class="btn btn-square btn-ghost">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                            </label>
-                        </div>
-                        <div class="flex-1 px-2 mx-2">Navbar Title</div>
-                        <div class="flex-none hidden lg:block">
-                            <ul class="menu menu-horizontal">
-
-                                <li><a>Add Task</a></li>
-                                <li><a>Login</a></li>
-                                <li><a>Log Out</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="drawer-side">
-                    <label for="my-drawer-3" class="drawer-overlay"></label>
-                    <ul class="menu p-4 overflow-y-auto w-80 bg-base-100">
-
-                        <li><a>Add Task</a></li>
-                        <li><a>Login</a></li>
-                        <li><a>Log Out</a></li>
-
+        <div className="navbar bg-accent text-white">
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <label tabIndex="0" className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-accent rounded-box w-52">
+                        {menuItems}
                     </ul>
-
                 </div>
+                <a className="btn btn-ghost normal-case text-xl hidden lg:block">Elevator Manufacturing Inc</a>
             </div>
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal p-0">
+                    {menuItems}
+                </ul>
+            </div>
+            {
+                user &&
+                <div className='navbar-end lg:hidden'>
+                    <label tabIndex="1" for="dashboard-sidebar" className="btn btn-ghost lg:hidden">
+                        Dashboard
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M9 5l7 7-7 7" /></svg>
+                    </label>
+                </div>
+            }
         </div>
     );
 };
