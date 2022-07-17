@@ -50,7 +50,7 @@ const AddedTask = () => {
                         <input
                             type="text"
                             placeholder="Write task name"
-                            className="input border-red-500 w-full max-w-xs"
+                            className="input input-bordered w-full max-w-xs"
                             {...register("taskName", {
                                 required: {
                                     value: true,
@@ -67,10 +67,10 @@ const AddedTask = () => {
                         <label className="label">
                             <span className="label-text">Task Description</span>
                         </label>
-                        <input
+                        <textarea
                             type="text"
                             placeholder="Description could be long or short"
-                            className="input input-bordered w-full max-w-xs"
+                            className="input input-bordered w-full max-w-xs h-24"
                             {...register("description", {
                                 required: {
                                     value: true,
