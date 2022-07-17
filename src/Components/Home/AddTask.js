@@ -1,19 +1,20 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
-const AddTask = () => {
-    const handleBooking = event => {
-        event.preventDefault();
-        
-    }
-        return (
-            <div>
-                <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 mt-2'>
-                    <input type="text" className="input border-red-600 w-full max-w-xs" />
+const AddTask = ({ task, setAddedTask }) => {
+    const { taskName, description } = task;
 
-                    <input type="submit" value="Submit" className="btn btn-secondary w-full max-w-xs" />
-                </form>
-            </div>
-        );
-    };
+    const [user] = useAuthState(auth);
 
-    export default AddTask;
+    setAddedTask(task);
+
+    return (
+        <div>
+            {taskName}
+            {description}
+        </div>
+    );
+};
+
+export default AddTask;
