@@ -38,6 +38,8 @@ const Home = () => {
                                 <th>S/L No</th>
                                 <th>Task Name</th>
                                 <th>Description</th>
+                                <th>Edit Task</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -50,7 +50,7 @@ const AddedTask = () => {
                         <input
                             type="text"
                             placeholder="Write task name"
-                            className="input input-bordered w-full max-w-xs"
+                            className="input input-bordered w-full max-w-xs" maxlength="20"
                             {...register("taskName", {
                                 required: {
                                     value: true,
