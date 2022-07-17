@@ -19,6 +19,7 @@ const AddedTask = () => {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
+                // authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(addTask)
         })
@@ -39,8 +40,8 @@ const AddedTask = () => {
         }
 
     return (
-        <div>
-            <h2>This is added task</h2>
+        <div className='grid items-center justify-center'>
+            <h2 className='text-xl text-secondary text-center'>Add a Task</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 gap-3 mt-2'>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
